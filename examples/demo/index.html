@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Strawberry Router | Demo</title>
+    <meta charset="utf-8" />
+    <script type="module" src="./main.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Strawberry Router</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li>
+          <a href="/examples/demo">Home</a>
+        </li>
+
+        <li>
+          <a href="/examples/demo/foo">Foo</a>
+        </li>
+
+        <li>
+          <a href="/examples/demo/bar">Bar</a>
+        </li>
+
+        <li>
+          <a href="/examples/demo/404">Error</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <router-view root="/examples/demo/"></router-view>
+    </main>
+
+    <footer>
+      <small>© MIT 2020</small>
+    </footer>
+  </body>
+
+  <template id="template:app/home">
+    <h1>Home</h1>
+  </template>
+
+  <template id="template:app/foo">
+    <h1>Foo</h1>
+  </template>
+
+  <template id="template:app/bar">
+    <h1>Bar</h1>
+  </template>
+
+  <template id="template:app/not-found">
+    <h1>404: Not Found</h1>
+
+    <p>This route has not been defined</p>
+  </template>
+</html>
