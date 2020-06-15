@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "noEmit": true
+  },
+  "include": [
+    "src/**/*.js"
+  ],
+  "typedocOptions": {
+    "mode": "library",
+    "inputFiles": ["src/index.js"],
+    "entryPoint": "index",
+    "out": "docs"
+  }
+}
