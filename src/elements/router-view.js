@@ -4,6 +4,8 @@ import { findRoute } from "../utils/routes.js";
  * @typedef {object} PrivateFields
  * @prop {string} root
  * @prop {?number} renderingId
+ * @prop {(event: Event) => void} navigateListener
+ * @prop {(event: Event) => void} popstateListener
  */
 
 /**
@@ -23,6 +25,8 @@ const PRIVATE_FIELDS = new WeakMap();
  *       route’s pathname
  * @prop {import("../utils/routes.js").RouteMap} routes - The route
  *       map that maps a subpath to a render function
+ * @listens Window#navigate
+ * @listens Window#popstate
  */
 export default class HTMLRouterViewElement extends HTMLElement {
   constructor() {
@@ -33,29 +37,38 @@ export default class HTMLRouterViewElement extends HTMLElement {
     PRIVATE_FIELDS.set(this, {
       root: "/",
       renderingId: null,
+      navigateListener: (event) => {
+        if (event instanceof CustomEvent && event.detail instanceof URL) {
+          this.render(event.detail);
+        }
+      },
+
+      popstateListener: () => {
+        this.render(new URL(window.location.href));
+      },
     });
 
     this.attachShadow({ mode: "open" });
-
-    /**
-     * @listens Window#navigate
-     */
-    window.addEventListener("navigate", (event) => {
-      if (event instanceof CustomEvent && event.detail instanceof URL) {
-        this.render(event.detail.pathname);
-      }
-    });
-
-    /**
-     * @listens Window#popstate
-     */
-    window.addEventListener("popstate", () => {
-      this.render(window.location.pathname);
-    });
   }
 
   connectedCallback() {
-    this.render(window.location.pathname);
+    const privateFields = PRIVATE_FIELDS.get(this);
+
+    if (privateFields) {
+      window.addEventListener("navigate", privateFields.navigateListener);
+      window.addEventListener("popstate", privateFields.popstateListener);
+    }
+
+    this.render(new URL(window.location.href));
+  }
+
+  disconnectedCallback() {
+    const privateFields = PRIVATE_FIELDS.get(this);
+
+    if (privateFields) {
+      window.removeEventListener("navigate", privateFields.navigateListener);
+      window.removeEventListener("popstate", privateFields.popstateListener);
+    }
   }
 
   /**
@@ -107,9 +120,9 @@ export default class HTMLRouterViewElement extends HTMLElement {
 
   /**
    * Render this router view with a specific pathname
-   * @param {string} pathname
+   * @param {URL} url
    */
-  async render(pathname) {
+  async render(url) {
     const privateFields = PRIVATE_FIELDS.get(this);
 
     if (!privateFields) {
@@ -128,8 +141,8 @@ export default class HTMLRouterViewElement extends HTMLElement {
       return;
     }
 
-    const route = findRoute(this.root, pathname, this.routes);
-    const fragment = route.render();
+    const { route, config } = findRoute(this.root, url, this.routes);
+    const fragment = config.render(route);
 
     while (this.shadowRoot.firstChild) {
       this.shadowRoot.firstChild.remove();
@@ -138,5 +151,3 @@ export default class HTMLRouterViewElement extends HTMLElement {
     this.shadowRoot.appendChild(fragment);
   }
 }
-
-window.customElements.define("router-view", HTMLRouterViewElement);

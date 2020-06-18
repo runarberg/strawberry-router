@@ -9,7 +9,8 @@
     "docs": "typedoc",
     "lint": "eslint --ignore-path .ignore .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "ava"
+    "test": "c8 ava",
+    "test:watch": "ava --watch"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,22 @@
     "url": "https://github.com/runarberg/strawberry-router/issues"
   },
   "homepage": "https://github.com/runarberg/strawberry-router#readme",
+  "ava": {
+    "require": [
+      "./test/_setup-browser-env.js"
+    ]
+  },
+  "c8": {
+    "reporter": [
+      "html",
+      "text",
+      "text-summary"
+    ],
+    "include": [
+      "src/**/*.js",
+      "!src/**/__tests__/*.js"
+    ]
+  },
   "eslintConfig": {
     "env": {
       "node": false,
@@ -56,9 +73,23 @@
         "error",
         "ignorePackages"
       ],
+      "import/first": "error",
+      "import/no-commonjs": "error",
+      "import/no-duplicates": "error",
+      "import/order": [
+        "warn",
+        {
+          "newlines-between": "always",
+          "alphabetize": {
+            "order": "asc",
+            "caseInsensitive": true
+          }
+        }
+      ],
       "no-alert": "error",
       "no-caller": "error",
       "no-console": "warn",
+      "no-debugger": "warn",
       "no-else-return": [
         "error",
         {
@@ -109,15 +140,15 @@
   },
   "devDependencies": {
     "ava": "^3.9.0",
+    "c8": "^7.2.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-ava": "^10.3.1",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-prettier": "^3.1.3",
+    "jsdom": "^16.2.2",
     "prettier": "2.0.5",
-    "typedoc": "^0.17.7"
-  },
-  "dependencies": {
+    "typedoc": "^0.17.7",
     "typescript": "^3.9.5"
   }
 }

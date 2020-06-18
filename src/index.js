@@ -1,4 +1,4 @@
-export { default as HTMLRouterViewElement } from "./elements/router-view.js";
+import HTMLRouterViewElement from "./elements/router-view.js";
 export { NOT_FOUND } from "./utils/globals.js";
 export { navigate } from "./methods.js";
 
@@ -7,3 +7,7 @@ window.addEventListener("navigate", (event) => {
     window.history.pushState(null, "", event.detail.href);
   }
 });
+
+window.customElements.define("router-view", HTMLRouterViewElement);
+
+export { HTMLRouterViewElement };

@@ -4,5 +4,8 @@ export const MISSING_ROUTE = {
   },
 };
 
-/** Used to render a 404 not found page */
+/**
+ * Used to render a 404 not found page
+ * @type {symbol}
+ */
 export const NOT_FOUND = Symbol("not found");
