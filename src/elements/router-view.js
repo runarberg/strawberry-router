@@ -1,6 +1,7 @@
 import { findRoute } from "../utils/routes.js";
 
 /**
+ * @typedef {import("../utils/routes.js").RouteMap} RouteMap
  * @typedef {object} PrivateFields
  * @prop {string} root
  * @prop {?number} renderingId
@@ -23,7 +24,7 @@ const PRIVATE_FIELDS = new WeakMap();
  *
  * @attr {string="/"} root - The root will be prepended to each
  *       route’s pathname
- * @prop {import("../utils/routes.js").RouteMap} routes - The route
+ * @prop {RouteMap} routes - The route
  *       map that maps a subpath to a render function
  * @listens Window#navigate
  * @listens Window#popstate
@@ -32,6 +33,7 @@ export default class HTMLRouterViewElement extends HTMLElement {
   constructor() {
     super();
 
+    /** @type {RouteMap} */
     this.routes = new Map();
 
     PRIVATE_FIELDS.set(this, {
@@ -134,7 +136,7 @@ export default class HTMLRouterViewElement extends HTMLElement {
     }
 
     await new Promise((resolve) => {
-      privateFields.renderingId = window.requestAnimationFrame(() => resolve());
+      privateFields.renderingId = window.requestAnimationFrame(resolve);
     });
 
     if (!this.shadowRoot) {

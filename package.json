@@ -26,129 +26,20 @@
     "url": "https://github.com/runarberg/strawberry-router/issues"
   },
   "homepage": "https://github.com/runarberg/strawberry-router#readme",
-  "ava": {
-    "require": [
-      "./test/_setup-browser-env.js"
-    ]
-  },
-  "c8": {
-    "reporter": [
-      "html",
-      "text",
-      "text-summary"
-    ],
-    "include": [
-      "src/**/*.js",
-      "!src/**/__tests__/*.js"
-    ]
-  },
-  "eslintConfig": {
-    "env": {
-      "node": false,
-      "browser": true
-    },
-    "parserOptions": {
-      "ecmaVersion": "2020",
-      "sourceType": "module"
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:ava/recommended",
-      "plugin:import/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "accessor-pairs": "error",
-      "array-callback-return": "error",
-      "class-methods-use-this": "error",
-      "eqeqeq": [
-        "error",
-        "always",
-        {
-          "null": "ignore"
-        }
-      ],
-      "grouped-accessor-pairs": "error",
-      "import/extensions": [
-        "error",
-        "ignorePackages"
-      ],
-      "import/first": "error",
-      "import/no-commonjs": "error",
-      "import/no-duplicates": "error",
-      "import/order": [
-        "warn",
-        {
-          "newlines-between": "always",
-          "alphabetize": {
-            "order": "asc",
-            "caseInsensitive": true
-          }
-        }
-      ],
-      "no-alert": "error",
-      "no-caller": "error",
-      "no-console": "warn",
-      "no-debugger": "warn",
-      "no-else-return": [
-        "error",
-        {
-          "allowElseIf": false
-        }
-      ],
-      "no-eval": "error",
-      "no-extend-native": "error",
-      "no-extra-bind": "error",
-      "no-implicit-coercion": "error",
-      "no-implied-eval": "error",
-      "no-invalid-this": "error",
-      "no-labels": "error",
-      "no-lone-blocks": "error",
-      "no-multi-str": "error",
-      "no-new": "error",
-      "no-new-func": "error",
-      "no-new-wrappers": "error",
-      "no-octal-escape": "error",
-      "no-param-reassign": "error",
-      "no-return-assign": "error",
-      "no-return-await": "error",
-      "no-script-url": "error",
-      "no-self-compare": "error",
-      "no-sequences": "error",
-      "no-shadow": "error",
-      "no-template-curly-in-string": "error",
-      "no-throw-literal": "error",
-      "no-unmodified-loop-condition": "error",
-      "no-unused-expressions": "error",
-      "no-useless-backreference": "error",
-      "no-useless-concat": "error",
-      "no-useless-return": "error",
-      "no-var": "error",
-      "no-void": "error",
-      "object-shorthand": "error",
-      "prefer-arrow-callback": "error",
-      "prefer-const": "error",
-      "prefer-destructuring": "error",
-      "prefer-promise-reject-errors": "error",
-      "prefer-template": "error",
-      "radix": "error",
-      "require-atomic-updates": "error"
-    }
-  },
-  "prettier": {
-    "trailingComma": "all"
-  },
   "devDependencies": {
+    "@types/jsdom": "^16.2.3",
+    "@types/sinon": "^9.0.4",
     "ava": "^3.9.0",
     "c8": "^7.2.0",
     "eslint": "^7.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-ava": "^10.3.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-ava": "^11.0.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-prettier": "^3.1.3",
     "jsdom": "^16.2.2",
-    "prettier": "2.0.5",
-    "typedoc": "^0.17.7",
-    "typescript": "^3.9.5"
+    "prettier": "2.2.1",
+    "sinon": "^9.0.2",
+    "typedoc": "^0.20.26",
+    "typescript": "^4.1.5"
   }
 }

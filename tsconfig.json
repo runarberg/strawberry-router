@@ -3,18 +3,11 @@
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true,
     "noEmit": true
   },
-  "include": [
-    "src/**/*.js"
-  ],
-  "typedocOptions": {
-    "mode": "library",
-    "inputFiles": ["src/index.js"],
-    "entryPoint": "index",
-    "out": "docs"
-  }
+  "include": ["src/**/*.js"]
 }

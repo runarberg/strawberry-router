@@ -10,11 +10,11 @@ import { NOT_FOUND, navigate } from "../../src/index.js";
  * templates must have a prepended `template:` for an id.
  *
  * @param {string} id - The `id` of the template element (minus the
- *        prepended `template:`)
+ *   prepended `template:`)
  * @param {(fragment: DocumentFragment, data: RouteData) => void} init
- * - An optional initialization function to run on the fragment
- * *after* it has been cloned. Use this to attach listeners, set
- * properties, etc.
+ *   - An optional initialization function to run on the fragment
+ *   *after* it has been cloned. Use this to attach listeners, set
+ *   properties, etc.
  * @returns {(data: RouteData) => DocumentFragment}
  */
 function fromTemplate(id, init) {
@@ -43,7 +43,7 @@ function main() {
     [
       "/hello/:word",
       {
-        render: fromTemplate("app/hello", (fragment, { data: { word } }) => {
+        render: fromTemplate("app/hello", (fragment, { params: { word } }) => {
           fragment.querySelector(
             "[data-interpolate='word']",
           ).textContent = word;
