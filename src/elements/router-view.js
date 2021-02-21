@@ -22,10 +22,8 @@ const PRIVATE_FIELDS = new WeakMap();
  * element. The render function is picked from a map of `Routes`. If
  * none is matched an empty fragment is rendered instead.
  *
- * @attr {string="/"} root - The root will be prepended to each
- *       route’s pathname
- * @prop {RouteMap} routes - The route
- *       map that maps a subpath to a render function
+ * @attr {string="/"} root - The root will be prepended to each  route’s pathname
+ * @property {RouteMap} routes - The route map that maps a subpath to a render function
  * @listens Window#navigate
  * @listens Window#popstate
  */
@@ -33,8 +31,11 @@ export default class HTMLRouterViewElement extends HTMLElement {
   constructor() {
     super();
 
-    /** @type {RouteMap} */
-    this.routes = new Map();
+    // Maybe routes were set before we registered the custom element.
+    if (!(this.routes instanceof Map)) {
+      /** @type {RouteMap} */
+      this.routes = new Map();
+    }
 
     PRIVATE_FIELDS.set(this, {
       root: "/",

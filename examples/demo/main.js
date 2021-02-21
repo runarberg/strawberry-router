@@ -1,4 +1,4 @@
-import { NOT_FOUND, navigate } from "../../src/index.js";
+import { HTMLRouterViewElement, NOT_FOUND, navigate } from "../../src/index.js";
 
 /**
  * @typedef {{ data: { [string]: string } }} RouteData
@@ -34,7 +34,13 @@ function fromTemplate(id, init) {
 }
 
 function main() {
-  const routerView = document.querySelector("router-view");
+  const routerView = document.querySelector(
+    "router-view[root='/examples/demo/']",
+  );
+
+  if (!(routerView instanceof HTMLRouterViewElement)) {
+    return;
+  }
 
   routerView.routes = new Map([
     ["/", { render: fromTemplate("app/home") }],
@@ -47,6 +53,31 @@ function main() {
           fragment.querySelector(
             "[data-interpolate='word']",
           ).textContent = word;
+        }),
+      },
+    ],
+    [
+      "/nested/*",
+      {
+        render: fromTemplate("app/nested", (fragment) => {
+          const nestedRouterView = fragment.querySelector(
+            "router-view[root='/examples/demo/nested/']",
+          );
+
+          nestedRouterView.routes = new Map([
+            ["/", { render: fromTemplate("app/nested/home") }],
+            ["/foo", { render: fromTemplate("app/nested/foo") }],
+            ["/bar", { render: fromTemplate("app/nested/bar") }],
+            [NOT_FOUND, { render: fromTemplate("app/not-found") }],
+          ]);
+
+          for (const anchor of fragment.querySelectorAll("nav a")) {
+            anchor.addEventListener("click", (event) => {
+              event.preventDefault();
+
+              navigate(new URL(anchor.href));
+            });
+          }
         }),
       },
     ],

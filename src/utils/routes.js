@@ -58,10 +58,14 @@ export function findRoute(root, url, routes) {
       .filter((segment) => segment.length > 0);
 
     if (
-      subpathSegments.length === targetSubpathSegments.length &&
+      (subpathSegments.length === targetSubpathSegments.length ||
+        subpathSegments.filter((segment) => segment !== "*").length ===
+          targetSubpathSegments.length) &&
       subpathSegments.every(
         (segment, i) =>
-          segment.startsWith(":") || segment === targetSubpathSegments[i],
+          segment === "*" ||
+          segment.startsWith(":") ||
+          segment === targetSubpathSegments[i],
       )
     ) {
       /** @type {RouteParams} */

@@ -1,5 +1,3 @@
-/* globals globalThis */
-
 import jsdom from "jsdom";
 
 const { window } = new jsdom.JSDOM("", {
